@@ -31,7 +31,6 @@ package weave.services
 	import weave.api.registerDisposableChild;
 	import weave.api.registerLinkableChild;
 	import weave.api.services.IWeaveGeometryTileService;
-	import weave.utils.HierarchyUtils;
 	
 	/**
 	 * This is a wrapper class for making asynchronous calls to a Weave data servlet.
@@ -99,9 +98,9 @@ package weave.services
 			return invoke(getEntityChildIds, arguments);
 		}
 		
-		public function getEntityIdsByMetadata(publicMetadata:Object, entityType:int):AsyncToken // returns int[]
+		public function getEntityIds(publicMetadata:Object):AsyncToken // returns int[]
 		{
-			return invoke(getEntityIdsByMetadata, arguments);
+			return invoke(getEntityIds, arguments);
 		}
 		
 		public function getEntitiesById(ids:Array):AsyncToken // returns DataEntity[]
