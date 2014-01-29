@@ -26,18 +26,19 @@ package weave.services
 	
 	import mx.rpc.AsyncToken;
 	
-	import weave.api.core.ILinkableObject;
 	import weave.api.data.IQualifiedKey;
 	import weave.api.registerDisposableChild;
 	import weave.api.registerLinkableChild;
+	import weave.api.services.IWeaveEntityService;
 	import weave.api.services.IWeaveGeometryTileService;
+	import weave.api.services.beans.EntityMetadata;
 	
 	/**
 	 * This is a wrapper class for making asynchronous calls to a Weave data servlet.
 	 * 
 	 * @author adufilie
 	 */
-	public class WeaveDataServlet implements ILinkableObject
+	public class WeaveDataServlet implements IWeaveEntityService
 	{
 		protected var servlet:AMF3Servlet;
 		private var propertyNameLookup:Dictionary = new Dictionary(); // Function -> String
@@ -88,30 +89,29 @@ package weave.services
 		////////////////////
 		// DataEntity info
 		
-		public function getDataTableList():AsyncToken // returns DataEntityTableInfo[]
+		public function get entityServiceInitialized():Boolean
 		{
-			return invoke(getDataTableList, arguments);
+			return true;
 		}
 		
-		public function getEntityChildIds(parentId:int):AsyncToken // returns int[]
+		public function getHierarchyInfo(entityType:String):AsyncToken // returns EntityHierarchyInfo[]
 		{
-			return invoke(getEntityChildIds, arguments);
+			return invoke(getHierarchyInfo, arguments);
 		}
 		
-		public function getEntityIds(publicMetadata:Object):AsyncToken // returns int[]
+		public function getEntities(ids:Array):AsyncToken // returns Entity[]
 		{
-			return invoke(getEntityIds, arguments);
+			return invoke(getEntities, arguments);
 		}
 		
-		public function getEntitiesById(ids:Array):AsyncToken // returns DataEntity[]
+		public function findEntityIds(metadata:EntityMetadata):AsyncToken // returns int[]
 		{
-			return invoke(getEntitiesById, arguments);
+			return invoke(findEntityIds, arguments);
 		}
 		
-		
-		public function getParents(id:int):AsyncToken // returns DataEntity[]
+		public function findPublicFieldValues(fieldName:String, valueSearch:String):AsyncToken // returns String[]
 		{
-			return invoke(getParents, arguments);
+			return invoke(findPublicFieldValues, arguments);
 		}
 		
 		////////////////////////////////////
